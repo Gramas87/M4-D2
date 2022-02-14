@@ -1,3 +1,4 @@
+
 import {Component} from "react";
 import SingleComment from "./SingleComment"
 
@@ -5,10 +6,17 @@ class CommentList extends Component {
     state = {
         comments: [], 
     }
-  componentDidMount = async () => {
+  componentDidUpdate = (PreviousProps) => {
+     if (PreviousProps.bookId !== this.props.bookId){
+       this.FetchComments()
+     }
+  }
+
+  FetchComments = async () => {
+    
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.bookId,
+        `https://striveschool-api.herokuapp.com/api/comments/${this.props.bookId}`,
         {
           headers: {
             Authorization:
@@ -17,10 +25,11 @@ class CommentList extends Component {
         }
       );
       if (response.ok) {
+        console.log("hello")
         let data = await response.json();
         this.setState({comments: data})
       } else {
-        alert("oh nooooooo");
+        alert("something wrong with the data");
       }
     } catch (error) {
       console.log(error);
@@ -28,7 +37,7 @@ class CommentList extends Component {
   };
   render() {
     return <div>
-        {this.state.comments.map((comment) => <SingleComment commentData={comment}/> )}
+        {this.state.comments.map((comment) => <SingleComment key={comment._id} commentData={comment}/> )}
     </div>;
   }
 }

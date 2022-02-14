@@ -10,8 +10,10 @@ class CommentArea extends Component {
 render() { 
     return(
         <div>
-            <CommentList bookId={this.props.bookData.asin} />
-            <AddComment bookId={this.props.bookData.asin} />
+            
+        <CommentList bookId={this.props.selectedBookAsin} />
+        <AddComment bookId={this.props.selectedBookAsin} />
+            
 
         </div>
         
