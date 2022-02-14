@@ -16,7 +16,7 @@ class LatestRelease extends Component {
     <Container fluid>
     <Row>
       <Col md={10}><div className="bg-dark row">{books.map((book)=>{return <SingleBook select={this.select} key={book.asin} bookData={book} />})}</div></Col>
-       <Col >  <CommentArea selectedBookAsin={this.state.selected} />   </Col >
+       <Col md={2}  >  <CommentArea selectedBookAsin={this.state.selected} />   </Col >
     </Row>
   </Container>)
     }
