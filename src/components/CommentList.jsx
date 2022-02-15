@@ -1,29 +1,22 @@
-
-import {Component} from "react";
 import SingleComment from "./SingleComment"
 import {useState, useEffect} from "react"
 
-const CommentList = () =>{
+
+const CommentList = ({bookId}) =>{
     /*{state = {
         comments: [], 
     }}*/
     const [comments, setComments] = useState([]);
 
-    useEffect(() => {
-      FetchComments()
-    }, [])
    
- const componentDidUpdate = (PreviousProps) => {
-     if (PreviousProps.bookId !== this.props.bookId){
-       this.FetchComments()
-     }
-  }
+   
+  
 
  const FetchComments = async () => {
     
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${this.props.bookId}`,
+        `https://striveschool-api.herokuapp.com/api/comments/${bookId}`,
         {
           headers: {
             Authorization:
@@ -33,9 +26,9 @@ const CommentList = () =>{
       );
       if (response.ok) {
         console.log("hello")
-        let data = await response.json();
+        let comments = await response.json();
         //{this.setState({comments: data})}//
-        setComments({comments: data})
+        setComments(comments)
       } else {
         alert("something wrong with the data");
       }
@@ -43,6 +36,10 @@ const CommentList = () =>{
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    FetchComments(bookId)
+  }, [bookId])
  
     return <div>
         {comments.map((comment) => <SingleComment key={comment._id} commentData={comment}/> )}
@@ -51,3 +48,4 @@ const CommentList = () =>{
 }
 
 export default CommentList;
+
