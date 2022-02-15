@@ -1,27 +1,38 @@
-import books from '../data/scifi.json'
-import SingleBook from './SingleBook'
-import {Container, Row, Col} from "react-bootstrap"
-import CommentArea from './CommentArea'
-import { Component } from 'react'
+import books from "../data/scifi.json";
+import SingleBook from "./SingleBook";
+import { Container, Row, Col } from "react-bootstrap";
+import CommentArea from "./CommentArea";
+import {useState } from "react";
 
-
-class LatestRelease extends Component {
-  state = {
+const LatestRelease = () => {
+  const [selected, SetSelected] = useState("");
+  /*{state = {
     selected: ""
-  }
-  select = (asin) => {this.setState({selected:asin}) }
-  
-  render() {
+  }}*/
+  /*{select = (asin) => {this.setState({selected:asin}) }} */
+  const select = (asin) => {
+    SetSelected(asin);
+  };
+
   return (
     <Container fluid>
-    <Row>
-      <Col md={10}><div className="bg-dark row">{books.map((book)=>{return <SingleBook select={this.select} key={book.asin} bookData={book} />})}</div></Col>
-       <Col md={2}  >  <CommentArea selectedBookAsin={this.state.selected} />   </Col >
-    </Row>
-  </Container>)
-    }
-  }
+      <Row>
+        <Col md={10}>
+          <div className="bg-dark row">
+            {books.map((book) => {
+              return (
+                <SingleBook select={select} key={book.asin} bookData={book} />
+              );
+            })}
+          </div>
+        </Col>
+        <Col md={2}>
+          
+          <CommentArea selectedBookAsin={selected} />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
-export default LatestRelease
-
-
+export default LatestRelease;

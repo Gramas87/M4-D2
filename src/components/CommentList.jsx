@@ -1,18 +1,25 @@
 
 import {Component} from "react";
 import SingleComment from "./SingleComment"
+import {useState, useEffect} from "react"
 
-class CommentList extends Component {
-    state = {
+const CommentList = () =>{
+    /*{state = {
         comments: [], 
-    }
-  componentDidUpdate = (PreviousProps) => {
+    }}*/
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+      FetchComments()
+    }, [])
+   
+ const componentDidUpdate = (PreviousProps) => {
      if (PreviousProps.bookId !== this.props.bookId){
        this.FetchComments()
      }
   }
 
-  FetchComments = async () => {
+ const FetchComments = async () => {
     
     try {
       let response = await fetch(
@@ -27,7 +34,8 @@ class CommentList extends Component {
       if (response.ok) {
         console.log("hello")
         let data = await response.json();
-        this.setState({comments: data})
+        //{this.setState({comments: data})}//
+        setComments({comments: data})
       } else {
         alert("something wrong with the data");
       }
@@ -35,11 +43,11 @@ class CommentList extends Component {
       console.log(error);
     }
   };
-  render() {
+ 
     return <div>
-        {this.state.comments.map((comment) => <SingleComment key={comment._id} commentData={comment}/> )}
+        {comments.map((comment) => <SingleComment key={comment._id} commentData={comment}/> )}
     </div>;
-  }
+  
 }
 
 export default CommentList;

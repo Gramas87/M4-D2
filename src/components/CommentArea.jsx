@@ -1,18 +1,17 @@
-import books from '../data/scifi.json'
 import  { Component }  from "react";
 import CommentList from "./CommentList"
 import AddComment from "./AddComment"
 
 
 
-class CommentArea extends Component {
+const CommentArea = ({selectedBookAsin}) => {
    
-render() { 
+  
     return(
         <div>
             
-        <CommentList bookId={this.props.selectedBookAsin} />
-        <AddComment bookId={this.props.selectedBookAsin} />
+        <CommentList bookId={selectedBookAsin} />
+        <AddComment bookId={selectedBookAsin} />
             
 
         </div>
@@ -20,7 +19,7 @@ render() {
     )
     
 
-}
+
  }
 
 export default CommentArea
