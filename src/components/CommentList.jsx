@@ -10,9 +10,11 @@ const CommentList = ({bookId}) =>{
 
    
    
-  
+    useEffect(() => {
+      FetchComments(bookId)
+    }, [bookId])
 
- const FetchComments = async () => {
+ const FetchComments = async (bookId) => {
     
     try {
       let response = await fetch(
@@ -37,9 +39,7 @@ const CommentList = ({bookId}) =>{
     }
   };
 
-  useEffect(() => {
-    FetchComments(bookId)
-  }, [bookId])
+ 
  
     return <div>
         {comments.map((comment) => <SingleComment key={comment._id} commentData={comment}/> )}
